@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TryCatchFinally": {
+      "commandName": "Project",
+      "commandLineArgs": "data.txt"
+    }
+  }
+}
