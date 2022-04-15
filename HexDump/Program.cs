@@ -5,10 +5,28 @@ namespace Unicode
 {
     class Program
     {
+        static Stream GetInputStream(string[] args)
+        {
+            if ((args.Length != 1) || !File.Exists(args[0]))
+                return Console.OpenStandardInput();
+            else
+            {
+                try
+                {
+                    return File.OpenRead(args[0]);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Console.Error.WriteLine("Cannot open {0}, info: {1}",args[0], ex.Message);
+                    return Console.OpenStandardInput();
+                }
+            }
+        }
+        
         static void Main(string[] args)
         {
             var position = 0;
-            using (Stream input = File.OpenRead(args[0]))
+            using (Stream input = GetInputStream(args))
             {
                 var buffer = new byte[16];
                 int bytesRead;
